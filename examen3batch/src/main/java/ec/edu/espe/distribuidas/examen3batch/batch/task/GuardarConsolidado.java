@@ -51,12 +51,15 @@ public class GuardarConsolidado implements Tasklet, StepExecutionListener {
         for(Transaccion t: transacciones){
         billetes10=t.getBilletes10()+billetes10;
         billetes20=t.getBilletes20()+billetes20;
-        
+        total=total.add(t.getMontoTransaccion());
+        t.setEstado("CON");
+        transaccionService.crearTransaccion(t);
         }
           consolidado.setBillete10(billetes10);
           consolidado.setBillete20(billetes20);
           consolidado.setMonto(total);
         this.service.crearConsolidado(consolidado);
+        
         return RepeatStatus.FINISHED;
     }
 

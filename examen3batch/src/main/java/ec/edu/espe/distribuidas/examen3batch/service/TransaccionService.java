@@ -22,4 +22,7 @@ public class TransaccionService {
     public List<Transaccion> encontrarPorEstado(String estado) {
         return this.transaccionRepo.findByEstdo(estado);
     }
+    public void crearTransaccion(Transaccion t){
+        this.transaccionRepo.save(t);
+    }
 }
