@@ -1,10 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ec.edu.espe.distribuidas.examen3batch.batch.task;
 
+import ec.edu.espe.distribuidas.examen3batch.service.TransaccionService;
+import lombok.Data;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepContribution;
@@ -15,22 +14,25 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.repeat.RepeatStatus;
 
+@Data
 @Slf4j
-public class GeneradorRandomico implements Tasklet, StepExecutionListener{
+public class LeerTransacciones implements Tasklet, StepExecutionListener{
 
     private ExecutionContext executionContext;
     
+    @NonNull
+    private final TransaccionService service;
+     
     @Override
     public RepeatStatus execute(StepContribution sc, ChunkContext cc) throws Exception {
         log.info("exeute");
-        executionContext.put("numero", new Integer(7));
+        executionContext.put("transacciones", this.service.encontrarPorEstado("PEN"));
         return RepeatStatus.FINISHED;
     }
 
     @Override
     public void beforeStep(StepExecution se) {
         log.info("Empezando..");
-        
         executionContext=se.getJobExecution().getExecutionContext();
         
     }
