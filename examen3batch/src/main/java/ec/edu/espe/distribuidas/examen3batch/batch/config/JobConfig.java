@@ -51,13 +51,13 @@ public class JobConfig {
     }
     
     @Bean
-    protected Step imprimirNumero(){
-         return stepBuilderFactory.get("imprimirNumero").tasklet(new GuardarConsolidado(consolidadoService,transaccionService)).build();
+    protected Step GuardarConsolidado(){
+         return stepBuilderFactory.get("GuardarConsolidado").tasklet(new GuardarConsolidado(consolidadoService,transaccionService)).build();
     }
     
     @Bean
     protected Job trabajo(){
-        return jobBuilderFactory.get("trabajo").start(LeerTransacciones()).next(imprimirNumero()).build();
+        return jobBuilderFactory.get("trabajo").start(LeerTransacciones()).next(GuardarConsolidado()).build();
     }
     
     
