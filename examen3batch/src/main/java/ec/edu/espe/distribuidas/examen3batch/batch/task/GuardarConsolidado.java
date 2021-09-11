@@ -67,7 +67,7 @@ public class GuardarConsolidado implements Tasklet, StepExecutionListener {
     public void beforeStep(StepExecution se) {
 
         executionContext = se.getJobExecution().getExecutionContext();
-        numero = (Integer) executionContext.get("transacciones");
+        transacciones = (List<Transaccion>) executionContext.get("transacciones");
     }
 
     @Override
