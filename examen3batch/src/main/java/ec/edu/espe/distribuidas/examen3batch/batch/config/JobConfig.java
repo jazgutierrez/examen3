@@ -53,6 +53,8 @@ public class JobConfig {
     protected Job trabajo(){
         return jobBuilderFactory.get("trabajo").start(generarNumero()).next(imprimirNumero()).build();
     }
+    
+    
  /*   
     //Formato 24 hr
      @Scheduled(cron = "30 12 19 * * *")
